@@ -1904,6 +1904,22 @@ def test_partialfunction() -> None:
     ]
 
 
+def test_partialfunction_of_imported_function() -> None:
+    options = {'members': None}
+    actual = do_autodoc('module', 'target.external_partial', options=options)
+    assert actual == [
+        '',
+        '.. py:module:: target.external_partial',
+        '',
+        '',
+        '.. py:function:: local_partial(b, c)',
+        '   :module: target.external_partial',
+        '',
+        '   docstring of func1',
+        '',
+    ]
+
+
 def test_imported_partialfunction_should_not_shown_without_imported_members() -> None:
     options = {'members': None}
     actual = do_autodoc('module', 'target.imported_members', options=options)
